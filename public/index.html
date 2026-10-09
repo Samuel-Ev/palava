@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000"><meta name="description" content="Palava: meet people from your city in shared rooms.">
+<title>Palava</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+<script src="/vendor/lucide.min.js" defer></script><script src="/socket.io/socket.io.js" defer></script><script src="/app.js" defer></script>
+</head><body>
+
+<div id="splash" aria-hidden="true"><div class="disc"></div><div class="words"><div class="word"><span style="--i:0">p</span><span style="--i:1">a</span><span style="--i:2">l</span><span style="--i:3">a</span><span style="--i:4">v</span><span style="--i:5">a</span></div></div></div>
+
+<main id="welcome">
+ <div class="wm" style="--i:0"><span class="logo" aria-hidden="true">p</span>Palava</div>
+ <div class="collage" style="--i:1;animation:none;opacity:1">
+  <div class="pc l"><svg viewBox="0 0 120 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="g8d5524" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0dbdff"/><stop offset="1" stop-color="#003a55"/></linearGradient></defs><rect width="120" height="150" fill="url(#g8d5524)"/><circle cx="92" cy="26" r="14" fill="#fff" opacity=".35"/><path d="M-10 150c4-40 28-52 70-52s66 12 70 52z" fill="#111"/><circle cx="60" cy="68" r="24" fill="#8d5524"/><path d="M34 66c-2-26 14-38 28-38s30 12 26 38c-6-14-14-18-28-18s-22 6-26 18z" fill="#111"/></svg></div>
+  <div class="pc r"><svg viewBox="0 0 120 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="gc68642" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6cff00"/><stop offset="1" stop-color="#1d4a00"/></linearGradient></defs><rect width="120" height="150" fill="url(#gc68642)"/><circle cx="92" cy="26" r="14" fill="#fff" opacity=".35"/><path d="M-10 150c4-40 28-52 70-52s66 12 70 52z" fill="#111"/><circle cx="60" cy="68" r="24" fill="#c68642"/><path d="M34 66c-2-26 14-38 28-38s30 12 26 38c-6-14-14-18-28-18s-22 6-26 18z" fill="#111"/></svg></div>
+  <div class="pc c"><svg viewBox="0 0 120 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="g5c3317" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7d00"/><stop offset="1" stop-color="#ff3100"/></linearGradient></defs><rect width="120" height="150" fill="url(#g5c3317)"/><circle cx="92" cy="26" r="14" fill="#fff" opacity=".35"/><path d="M-10 150c4-40 28-52 70-52s66 12 70 52z" fill="#111"/><circle cx="60" cy="68" r="24" fill="#5c3317"/><path d="M34 66c-2-26 14-38 28-38s30 12 26 38c-6-14-14-18-28-18s-22 6-26 18z" fill="#111"/></svg></div>
+  <div class="torn"></div>
+  <span class="stk" style="--d:.7s;left:14%;top:-6px;color:var(--green)" aria-hidden="true" data-ph="crown-simple" data-s="38"></span>
+  <span class="stk" style="--d:.8s;right:12%;top:-8px;color:var(--flame,#ff5e00)" aria-hidden="true" data-ph="flame" data-s="42"></span>
+  <span class="stk tag" style="--d:.9s;--r:-3deg;left:2%;bottom:6%;background:var(--orange)">Chidi</span>
+  <span class="stk tag" style="--d:1s;--r:2deg;left:44%;bottom:18%;background:var(--accent)">Ada</span>
+  <span class="stk tag" style="--d:1.1s;--r:-2deg;right:2%;top:30%;background:var(--cyan)">Zainab</span>
+ </div>
+ <p class="hi" style="--i:2"><span data-ph="paper-plane-tilt" data-s="20" data-f="1"></span>Say hi first</p>
+ <p class="eyebrow" style="--i:3">The truth is...</p>
+ <h1 style="--i:4">Your city is already talking.</h1>
+ <button class="btn press" id="start" style="--i:5">Get started</button>
+ <button class="cont press" id="cont" style="--i:6" hidden><span class="av on" id="cav" style="--c:var(--accent);--w:32px">P</span>Continue as <b id="cname"></b><i data-lucide="chevron-right" style="--s:18px"></i></button>
+ <button class="cont press" id="login" style="--i:7">I already have an account</button>
+</main>
+
+<div id="app">
+ <nav class="rail" aria-label="Main"><div class="logo" aria-hidden="true">p</div></nav>
+ <section class="list" id="list" aria-live="polite"></section>
+ <section class="chat" id="chat"></section>
+ <aside class="people" id="people" aria-label="People here now"></aside>
+ <div class="scrim" id="scrim"></div>
+</div>
+
+</body></html>
