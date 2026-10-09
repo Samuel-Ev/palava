@@ -120,7 +120,10 @@ app.use('/api', (req, res, next) => { // CSRF defence in depth: SameSite=Lax coo
 });
 const need = (req, res) => { const s = sessionUser(req.headers.cookie, true); if (!s) res.status(401).json({ error: 'auth' }); return s; };
 
-app.get('/healthz', (q, r) => r.send('ok'));
+// Health check for Render and uptime monitors (UptimeRobot etc). GET and HEAD both work.
+const health = (q, r) => { r.set('Cache-Control', 'no-store'); r.status(200).json({ status: 'ok', uptime: Math.round(process.uptime()) }); };
+app.get('/health', health);
+app.get('/healthz', health);
 app.get('/api/me', (req, res) => {
   const s = need(req, res); if (!s) return;
   setCookie(res, s.t); save(); res.json({ user: pub(s.u) });
@@ -263,6 +266,14 @@ io.on('connection', sock => {
 init().then(() => {
   purge(); setInterval(purge, 36e5).unref();
   server.listen(PORT, () => console.log('Palava listening on :' + PORT + (col ? ' (MongoDB)' : ' (file storage)')));
+  // Backup keep-awake: Render's free tier sleeps after ~15 min without traffic. RENDER_EXTERNAL_URL is set by Render.
+  // An external monitor pointed at /health is the more reliable option (it also alerts you when the app is down).
+  const self = process.env.RENDER_EXTERNAL_URL;
+  if (PROD && self && process.env.KEEPALIVE !== '0') {
+    setInterval(() => {
+      fetch(self + '/health', { signal: AbortSignal.timeout(10000) }).catch(e => console.warn('keepalive ping failed:', e.message));
+    }, 10 * 60 * 1000).unref();
+  }
 }).catch(e => { console.error('startup failed:', e.message); process.exit(1); });
 const stop = async () => { clearTimeout(saveT); await persist(); process.exit(0); };
 process.on('SIGTERM', stop); process.on('SIGINT', stop);
